@@ -1,0 +1,119 @@
+
+posX=0;
+posY=0;
+posZ=100;
+
+speedX=1;
+speedY=2;
+speedZ=-3;
+
+boxSize=50;
+
+let gulle;
+let gulle2;
+
+function setup() 
+{
+  createCanvas(400, 400,WEBGL);
+  angleMode(DEGREES);
+  gulle=loadImage('Gulle.png');
+  gulle2=loadImage('Gulle.2.png');
+}
+
+function draw() 
+{
+  background(220);
+
+  posX=posX+speedX;
+  posY=posY+speedY;
+  posZ=posZ+speedZ;
+
+  pointLight(255,20,20,posX+boxSize,posY,posZ);
+  pointLight(20,255,20,posX-boxSize,posY,posZ);
+
+  pointLight(20,255,20,posX,posY+boxSize,posZ);
+  pointLight(20,255,20,posX,posY-boxSize,posZ);
+
+  pointLight(255,255,255,posX,posY,posZ+boxSize);
+  pointLight(20,20,255,posX,posY,posZ-boxSize);
+
+  
+
+  texture(gulle);
+  noStroke();
+
+  //right wall
+  push();
+  rotateY(270);
+  translate(100,0,-100);
+  plane(200,200);
+  pop();
+
+//left wall
+  push();
+  rotateY(90);
+  translate(-100,0,-100);
+  plane(200,200);
+  pop();
+
+//roof
+  push();
+  rotateX(-90);
+  translate(0,-100,-100);
+  plane(200,200);
+  pop();
+
+  //floor
+  push();
+  rotateX(90);
+  translate(0,100,-100);
+  plane(200,200);
+  pop();
+
+  //back wall
+  push();
+  translate(0,0,0);
+  plane(200,200);
+  pop();
+
+
+
+push();
+  translate(posX,posY,posZ);
+  texture(gulle2);
+  box(boxSize);
+  pop();
+
+ if(posX>100-boxSize/2)
+ {
+  speedX=-speedX;
+ }
+ 
+ if(posX<-100+boxSize/2)
+ {
+  speedX=-speedX;
+ }
+
+ if(posY>100-boxSize/2)
+ {
+  speedY=-speedY;
+ }
+ 
+ if(posY<-100+boxSize/2)
+ {
+  speedY=-speedY;
+ }
+
+ if(posZ>200-boxSize/2)
+ {
+  speedZ=-speedZ;
+ }
+ 
+ if(posZ<0+boxSize/2)
+ {
+  speedZ=-speedZ;
+ }
+
+ 
+
+}
